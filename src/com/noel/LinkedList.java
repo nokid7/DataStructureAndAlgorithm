@@ -98,4 +98,49 @@ public class LinkedList {
         }while(temp != null);
 
     }
+
+    public int[] toArray(){
+        int[] array = new int[size()];
+        Node current = first;
+        int index = 0;
+        while(current != null){
+            array[index] = current.getValue();
+            index++;
+            current= current.getNext();
+        }
+        return array;
+    }
+    public void reverse(){
+        Node prev = null;
+        Node current = first;
+        Node next = null;
+        while(current != null)
+        {
+            next = current.getNext();
+            current.assignNext(prev);
+            prev=current;
+            current = next;
+        }
+//        current.assignNext(prev);
+        last = first;
+        first = prev;
+    }
+
+    public int getKthFromTheEnd(int k){
+        if(k<1 || k> size())
+            throw new IndexOutOfBoundsException();
+        Node current = first;
+        Node kth = first;
+        int index = 0;
+        while (index != k-1){
+            current = current.getNext();
+            index++;
+        }
+
+        while(current.getNext() != null){
+            kth = kth.getNext();
+            current = current.getNext();
+        }
+        return kth.getValue();
+    }
 }
